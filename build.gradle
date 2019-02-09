@@ -40,4 +40,6 @@ ext {
     // Dependencies versions
     appcompatVersion = '28.0.0'
     retrofitVersion = '2.3.0'
+    daggerVersion = '2.14.1'
+    okhttpVersion = '3.9.1'
 }
