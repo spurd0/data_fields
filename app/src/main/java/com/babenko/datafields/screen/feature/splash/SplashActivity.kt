@@ -20,9 +20,7 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash_screen)
         viewModel = getViewModel()
         viewModel.getAnimationData().observe(this, Observer {
-            if (it!!) {
-                navigateToNextScreen()
-            }
+            if (it != null) navigateToNextScreen(it)
         })
     }
 
@@ -47,7 +45,7 @@ class SplashActivity : BaseActivity() {
         }
     }
 
-    private fun navigateToNextScreen() {
-        Toast.makeText(this, "Navigate to next screen", Toast.LENGTH_SHORT).show()
+    private fun navigateToNextScreen(screen: SplashViewModel.Screen) {
+        Toast.makeText(this, "Navigate to next screen: $screen", Toast.LENGTH_SHORT).show()
     }
 }

@@ -57,6 +57,7 @@ class DataFieldsApplication : Application() {
 
     private fun initRepositoryComponent(): RepositoryComponent {
         return DaggerRepositoryComponent.builder()
+            .contextModule(ContextModule(this))
             .retrofitModule(RetrofitModule())
             .build()
     }
