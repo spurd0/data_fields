@@ -31,12 +31,12 @@ android {
     applicationVariants.all { variant ->
         changeApkFileName(variant)
     }
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
+    }
+    dataBinding {
+        enabled = true
     }
 }
 

@@ -2,6 +2,7 @@ package com.babenko.datafields.screen.feature.splash
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.babenko.datafields.R
@@ -34,6 +35,7 @@ class SplashActivity : BaseActivity() {
 
                 override fun onAnimationEnd(a: Animation) {
                     viewModel.onAnimationEnd()
+                    splashImageView.visibility = View.GONE
                 }
 
                 override fun onAnimationRepeat(animation: Animation) {
