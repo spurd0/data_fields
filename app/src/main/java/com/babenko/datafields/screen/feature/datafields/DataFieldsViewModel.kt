@@ -21,6 +21,8 @@ class DataFieldsViewModel() : ViewModel() {
 
     init {
         DataFieldsApplication.appComponent.inject(this)
+
+        requestFieldsData()
     }
 
     private fun requestFieldsData() {

@@ -6,7 +6,6 @@ import com.babenko.datafields.model.datasource.rest.config.ServerEndpoint
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.throwable.NoDataFieldsException
 import io.reactivex.Single
-import io.reactivex.internal.operators.single.SingleFromCallable
 import javax.inject.Inject
 
 class DataFieldsRepository @Inject constructor(
@@ -23,6 +22,10 @@ class DataFieldsRepository @Inject constructor(
     }
 
     fun getDataFields(): Single<List<DataField>> {
-        return SingleFromCallable { throw NoDataFieldsException() }
+        return db.dataFieldsDao().getDataFields()
+            .map {
+                if (it.isEmpty()) throw NoDataFieldsException()
+                it
+            }
     }
 }

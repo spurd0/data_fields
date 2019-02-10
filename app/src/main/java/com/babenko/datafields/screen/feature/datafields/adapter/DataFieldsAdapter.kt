@@ -23,6 +23,8 @@ class DataFieldsAdapter(private val context: Context) :
         private const val TYPE_HEADER = 1
         private const val TYPE_DATA_FIELD = 2
         private const val TYPE_FOOTER = 3
+
+        private const val POSITION_DATA_FIELDS = 1
     }
 
     private val containerLayoutRes = object : SparseIntArray() {
@@ -36,6 +38,11 @@ class DataFieldsAdapter(private val context: Context) :
     private val items = ArrayList<AdapterItem>()
     private val fieldValues = SparseArrayCompat<EditText>()
     private var defaultBackground: Drawable? = null
+
+    init {
+        items.add(DataFieldHeaderAdapterItem())
+        items.add(DataFieldFoterAdapterItem())
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -106,8 +113,9 @@ class DataFieldsAdapter(private val context: Context) :
     fun replaceItems(dataFields: List<DataFieldVo>) {
         clearDataFields()
         for (dataField in dataFields) {
-            items.add(DataFieldAdapterItem(dataField))
+            items.add(POSITION_DATA_FIELDS, DataFieldAdapterItem(dataField))
         }
+        notifyDataSetChanged()
     }
 
     private fun clearDataFields() {
@@ -144,5 +152,13 @@ class DataFieldsAdapter(private val context: Context) :
     data class DataFieldAdapterItem(val dataField: DataFieldVo) :
         AdapterItem {
         override val itemViewType = TYPE_DATA_FIELD
+    }
+
+    private class DataFieldHeaderAdapterItem() : AdapterItem {
+        override val itemViewType = TYPE_HEADER
+    }
+
+    private class DataFieldFoterAdapterItem() : AdapterItem {
+        override val itemViewType = TYPE_FOOTER
     }
 }
