@@ -2,7 +2,8 @@ package com.babenko.datafields.application
 
 import android.app.Application
 import com.babenko.datafields.BuildConfig
-import com.babenko.datafields.application.dagger.*
+import com.babenko.datafields.application.dagger.AppComponent
+import com.babenko.datafields.application.dagger.DaggerAppComponent
 import com.babenko.datafields.application.dagger.modules.ContextModule
 import com.babenko.datafields.application.dagger.modules.RetrofitModule
 import com.squareup.leakcanary.LeakCanary
@@ -10,10 +11,7 @@ import timber.log.Timber
 
 class DataFieldsApplication : Application() {
     companion object {
-        lateinit var viewComponent: ViewComponent private set
-        lateinit var presenterComponent: PresenterComponent private set
-        lateinit var modelComponent: ModelComponent private set
-        lateinit var repositoryComponent: RepositoryComponent private set
+        lateinit var appComponent: AppComponent private set
     }
 
     override fun onCreate() {
@@ -33,30 +31,11 @@ class DataFieldsApplication : Application() {
     }
 
     private fun initComponents() {
-        viewComponent = initViewUtilityComponent()
-        presenterComponent = initPresenterUtilityComponent()
-        modelComponent = initModelComponent()
-        repositoryComponent = initRepositoryComponent()
+        appComponent = initPresenterUtilityComponent()
     }
 
-    private fun initViewUtilityComponent(): ViewComponent {
-        return DaggerViewComponent.builder()
-            .build()
-    }
-
-    private fun initPresenterUtilityComponent(): PresenterComponent {
-        return DaggerPresenterComponent.builder()
-            .build()
-    }
-
-    private fun initModelComponent(): ModelComponent {
-        return DaggerModelComponent.builder()
-            .contextModule(ContextModule(this))
-            .build()
-    }
-
-    private fun initRepositoryComponent(): RepositoryComponent {
-        return DaggerRepositoryComponent.builder()
+    private fun initPresenterUtilityComponent(): AppComponent {
+        return DaggerAppComponent.builder()
             .contextModule(ContextModule(this))
             .retrofitModule(RetrofitModule())
             .build()

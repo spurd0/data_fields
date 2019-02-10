@@ -15,7 +15,7 @@ class SplashViewModel : ViewModel() {
     private val screenData = MutableLiveData<Screen>()
 
     init {
-        DataFieldsApplication.presenterComponent.inject(this)
+        DataFieldsApplication.appComponent.inject(this)
 
         isFirstLaunch = launchInteractor.isFirstLaunch
     }

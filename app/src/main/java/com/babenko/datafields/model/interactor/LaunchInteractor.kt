@@ -1,17 +1,11 @@
 package com.babenko.datafields.model.interactor
 
-import com.babenko.datafields.application.DataFieldsApplication
 import com.babenko.datafields.model.repository.AppInfoRepository
 import javax.inject.Inject
 
 class LaunchInteractor @Inject constructor(
+    private val appInfoRepository: AppInfoRepository
 ) {
-    @Inject lateinit var appInfoRepository: AppInfoRepository
-
-    init {
-        DataFieldsApplication.modelComponent.inject(this)
-    }
-
     val isFirstLaunch: Boolean
         get() {
             val timeStamp = appInfoRepository.firstLaunchTimeStamp
