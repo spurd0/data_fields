@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.babenko.datafields.R
+import com.babenko.datafields.application.util.loadImageWithCenterCropTransformation
 import com.babenko.datafields.model.entity.ImageItem
 
-class ImagesAdapter(context: Context, private val mCallback: ImagesListener) :
+class ImagesAdapter(private val context: Context, private val mCallback: ImagesListener) :
     RecyclerView.Adapter<ImagesAdapter.ImagesItemHolder>() {
     private val inflater = LayoutInflater.from(context)
 
@@ -40,8 +41,12 @@ class ImagesAdapter(context: Context, private val mCallback: ImagesListener) :
         private val pictureElementImageView = view.findViewById<ImageView>(R.id.pictureElementImageView)
 
         fun updateView(item: ImageItem) {
-//            Picasso.get().load(item.thumbnailUrl).error(R.drawable.question_mark)
-//                .placeholder(R.drawable.question_mark).into(pictureElementImageView)
+            loadImageWithCenterCropTransformation(
+                context,
+                pictureElementImageView,
+                item.thumbnailUrl,
+                R.drawable.question_mark
+            )
             pictureElementId.text = item.id.toString()
             pictureElementTitle.text = item.title
             pictureElementImageView.rootView.setOnClickListener { v -> mCallback.itemClicked(item.url) }
