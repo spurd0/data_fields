@@ -7,4 +7,5 @@ object RestUrls {
     const val API = ""
 
     const val DEBUG_URL_FIELDS = "http://www.mocky.io/v2/58fa10ce110000b81ad2106c"
+    const val URL_IMAGES = "https://jsonplaceholder.typicode.com/photos"
 }

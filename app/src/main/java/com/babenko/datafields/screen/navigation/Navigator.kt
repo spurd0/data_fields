@@ -3,6 +3,7 @@ package com.babenko.datafields.screen.navigation
 import android.content.Context
 import android.content.Intent
 import com.babenko.datafields.screen.feature.datafields.DataFieldsActivity
+import com.babenko.datafields.screen.feature.images.ImagesActivity
 import com.babenko.datafields.screen.feature.url.UrlActivity
 
 class Navigator {
@@ -18,6 +19,7 @@ class Navigator {
     }
 
     fun navigateToImagesActivity(context: Context) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val intent = Intent(context, ImagesActivity::class.java)
+        context.startActivity(intent)
     }
 }

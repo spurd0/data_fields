@@ -3,7 +3,6 @@ package com.babenko.datafields.screen.feature.datafields
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.babenko.datafields.application.DataFieldsApplication
-import com.babenko.datafields.application.arch.lifecycle.SingleLiveEvent
 import com.babenko.datafields.application.util.applyIoMainThreadSchedulersToSingle
 import com.babenko.datafields.model.datasource.rest.constant.RestConsts
 import com.babenko.datafields.model.entity.DataField
@@ -16,7 +15,7 @@ import javax.inject.Inject
 class DataFieldsViewModel() : ViewModel() {
     @Inject lateinit var dataFieldsInteractor: DataFieldsInteractor
     private val dataFieldsData = MutableLiveData<DataFieldsVo>()
-    val liveData = SingleLiveEvent<DataFieldsViewState>()
+    val liveData = MutableLiveData<DataFieldsViewState>()
 
     init {
         DataFieldsApplication.appComponent.inject(this)

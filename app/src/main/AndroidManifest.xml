@@ -25,6 +25,7 @@
         <activity android:name=".screen.feature.url.UrlActivity" android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".screen.feature.datafields.DataFieldsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".screen.feature.images.ImagesActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

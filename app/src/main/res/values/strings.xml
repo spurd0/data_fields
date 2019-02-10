@@ -16,4 +16,6 @@
     <string name="data_fields_error">Please check values.</string>
     <string name="data_field_incorrect">Please check value</string>
     <string name="data_fields_submit_button">Submit</string>
+    <!--Images list screen-->
+    <string name="images_list_is_empty">Images list is empty</string>
 </resources>
