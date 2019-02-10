@@ -11,7 +11,6 @@ import com.babenko.datafields.screen.base.BaseActivity
 import com.babenko.datafields.screen.feature.datafields.adapter.DataFieldsAdapter
 import com.babenko.datafields.screen.feature.datafields.adapter.DataFieldsListener
 import kotlinx.android.synthetic.main.activity_data_fields.*
-import timber.log.Timber
 
 class DataFieldsActivity : BaseActivity(), DataFieldsListener {
     companion object {

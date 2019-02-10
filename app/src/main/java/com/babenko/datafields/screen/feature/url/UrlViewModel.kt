@@ -7,8 +7,6 @@ import com.babenko.datafields.application.arch.lifecycle.SingleLiveEvent
 import com.babenko.datafields.application.util.applyIoMainThreadSchedulersToCompletable
 import com.babenko.datafields.model.datasource.rest.constant.RestUrls.DEBUG_URL_FIELDS
 import com.babenko.datafields.model.interactor.DataFieldsInteractor
-import com.babenko.datafields.model.throwable.IncorrectUrlException
-import com.babenko.datafields.model.throwable.NoConnectionException
 import javax.inject.Inject
 
 class UrlViewModel : ViewModel() {

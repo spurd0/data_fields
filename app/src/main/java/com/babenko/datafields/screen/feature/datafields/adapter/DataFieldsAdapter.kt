@@ -1,18 +1,22 @@
 package com.babenko.datafields.screen.feature.datafields.adapter
 
 import android.content.Context
-import android.graphics.drawable.Drawable
+import android.support.design.widget.TextInputEditText
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.SparseIntArray
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import com.babenko.datafields.R
 import com.babenko.datafields.application.util.getInputHint
 import com.babenko.datafields.application.util.getInputType
 import com.babenko.datafields.model.viewobject.DataFieldVo
 import com.babenko.datafields.screen.feature.datafields.adapter.holder.DataFieldFooterViewHolder
 import com.babenko.datafields.screen.feature.datafields.adapter.holder.DataFieldHeaderViewHolder
-import com.babenko.datafields.screen.feature.datafields.adapter.holder.DataFieldItemViewHolder
+
 
 class DataFieldsAdapter(
     private val context: Context,
@@ -36,7 +40,6 @@ class DataFieldsAdapter(
     }
     private val inflater = LayoutInflater.from(context)
     private val items = ArrayList<AdapterItem>()
-    private var defaultBackground: Drawable? = null
 
     init {
         items.add(DataFieldHeaderAdapterItem())
@@ -59,7 +62,6 @@ class DataFieldsAdapter(
                     false
                 )
                 val vh = DataFieldItemViewHolder(view)
-                if (defaultBackground == null) defaultBackground = vh.mFieldValue.background
                 return vh
             }
             else -> DataFieldFooterViewHolder(
@@ -85,22 +87,21 @@ class DataFieldsAdapter(
         val dataElement = items[position]
         val viewType = dataElement.itemViewType
         when (viewType) {
-            TYPE_DATA_FIELD -> {
-                val item = dataElement as DataFieldAdapterItem
-                onBindDataField(holder as DataFieldItemViewHolder, item.dataField)
-            }
+            TYPE_DATA_FIELD -> onBindDataField(holder as DataFieldItemViewHolder, position)
         }
     }
 
     private fun onBindDataField(
         holder: DataFieldItemViewHolder,
-        dataElement: DataFieldVo
+        position: Int
     ) {
+        val item = items[position] as DataFieldAdapterItem
+        val dataElement = item.dataField
         val value = dataElement.value
-
-        holder.mFieldValue.setText(value)
-        holder.mFieldValue.hint = getInputHint(dataElement.type, context)
-        holder.mFieldValue.inputType = getInputType(dataElement.type)
+        holder.fieldValue.tag = position;
+        holder.fieldValue.setText(value)
+        holder.fieldValue.hint = getInputHint(dataElement.type, context)
+        holder.fieldValue.inputType = getInputType(dataElement.type)
     }
 
     fun replaceItems(dataFields: List<DataFieldVo>) {
@@ -134,5 +135,31 @@ class DataFieldsAdapter(
 
     private class DataFieldFoterAdapterItem() : AdapterItem {
         override val itemViewType = TYPE_FOOTER
+    }
+
+    private inner class DataFieldsTextWatcher(private val editText: EditText) : TextWatcher {
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            val position = editText.tag as Int
+            val item = items[position] as DataFieldAdapterItem
+            val dataElement = item.dataField
+            dataElement.value = s.toString()
+        }
+
+        override fun afterTextChanged(editable: Editable) {}
+    }
+
+    private inner class DataFieldItemViewHolder(
+        itemView: View
+    ) : RecyclerView.ViewHolder(itemView) {
+        val fieldValue = itemView.findViewById<View>(R.id.dataFieldValue) as TextInputEditText
+
+        init {
+            fieldValue.addTextChangedListener(DataFieldsTextWatcher(fieldValue))
+        }
     }
 }

@@ -1,8 +1,8 @@
 package com.babenko.datafields.application.dagger
 
 import com.babenko.datafields.application.dagger.modules.ContextModule
-import com.babenko.datafields.application.dagger.modules.RetrofitModule
 import com.babenko.datafields.application.dagger.modules.DataSourceModule
+import com.babenko.datafields.application.dagger.modules.RetrofitModule
 import com.babenko.datafields.screen.feature.datafields.DataFieldsViewModel
 import com.babenko.datafields.screen.feature.splash.SplashViewModel
 import com.babenko.datafields.screen.feature.url.UrlViewModel
