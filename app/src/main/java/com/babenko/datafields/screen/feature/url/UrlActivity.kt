@@ -12,7 +12,6 @@ import com.babenko.datafields.model.throwable.NoConnectionException
 import com.babenko.datafields.screen.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_url.*
 import kotlinx.android.synthetic.main.layout_progress.*
-import timber.log.Timber
 
 class UrlActivity : BaseActivity() {
     companion object {
@@ -48,7 +47,8 @@ class UrlActivity : BaseActivity() {
     private fun onLoaded() {
         progressView.visibility = View.GONE
         requestUrlEditText.isEnabled = true
-        Timber.d("Loaded")
+        navigator.navigateToDataFieldsActivity(this)
+        finish()
     }
 
     private fun onError(throwable: Throwable) {

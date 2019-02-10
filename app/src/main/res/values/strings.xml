@@ -1,8 +1,18 @@
 <resources>
     <string name="app_name">Data Fields</string>
-    <string name="request_fields_url_hint">Enter URL</string>
-    <string name="request_fields_button_text">Request data</string>
+    <!--Errors-->
     <string name="error_general_server">Server error occurred, please try again later</string>
     <string name="error_no_connection">Please check internet connection</string>
     <string name="error_incorrect_url">Please enter valid URL</string>
+    <!--Request fields-->
+    <string name="request_fields_url_hint">Enter URL</string>
+    <string name="request_fields_button_text">Request data</string>
+    <!--Data fields-->
+    <string name="data_field_text_hint">Please enter text</string>
+    <string name="data_field_email_hint">Please enter email</string>
+    <string name="data_field_phone_hint">Please enter phone</string>
+    <string name="data_field_number_hint">Please enter number</string>
+    <string name="data_field_url_hint">Please enter URL</string>
+    <string name="data_field_incorrect_format">Please check values.</string>
+    <string name="data_fields_submit_button">Submit</string>
 </resources>

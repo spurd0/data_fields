@@ -2,10 +2,12 @@ package com.babenko.datafields.model.interactor
 
 import android.util.Patterns
 import com.babenko.datafields.model.datasource.rest.config.ServerEndpoint
+import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.repository.DataFieldsRepository
 import com.babenko.datafields.model.throwable.IncorrectUrlException
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.internal.operators.completable.CompletableFromAction
 import javax.inject.Inject
 
 
@@ -16,8 +18,12 @@ class DataFieldsInteractor @Inject constructor(
         return getEndpoint(url)
             .flatMapCompletable {
                 dataFieldsRepository.requestDataFields(it)
-                    .ignoreElement()
+                    .flatMapCompletable(this::saveDataFields)
             }
+    }
+
+    private fun saveDataFields(dataFields: List<DataField>): Completable {
+        return CompletableFromAction { dataFieldsRepository.saveDataFeilds(dataFields) }
     }
 
     private fun getEndpoint(url: String): Single<ServerEndpoint> {
@@ -31,5 +37,13 @@ class DataFieldsInteractor @Inject constructor(
                 }
             }
         }
+    }
+
+    fun getDataFields(): Single<List<DataField>> {
+        return dataFieldsRepository.getDataFields()
+    }
+
+    fun checkFields(valuesList: List<DataField>): Completable {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
