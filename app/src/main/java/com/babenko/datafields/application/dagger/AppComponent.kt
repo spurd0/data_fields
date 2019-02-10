@@ -4,6 +4,7 @@ import com.babenko.datafields.application.dagger.modules.ContextModule
 import com.babenko.datafields.application.dagger.modules.RetrofitModule
 import com.babenko.datafields.application.dagger.modules.StorageModule
 import com.babenko.datafields.screen.feature.splash.SplashViewModel
+import com.babenko.datafields.screen.feature.url.UrlViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -12,5 +13,6 @@ import javax.inject.Singleton
     modules = [ContextModule::class, RetrofitModule::class, StorageModule::class]
 )
 interface AppComponent {
-    fun inject(splashViewModel: SplashViewModel)
+    fun inject(viewModel: SplashViewModel)
+    fun inject(viewModel: UrlViewModel)
 }

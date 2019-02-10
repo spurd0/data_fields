@@ -2,4 +2,7 @@
     <string name="app_name">Data Fields</string>
     <string name="request_fields_url_hint">Enter URL</string>
     <string name="request_fields_button_text">Request data</string>
+    <string name="error_general_server">Server error occurred, please try again later</string>
+    <string name="error_no_connection">Please check internet connection</string>
+    <string name="error_incorrect_url">Please enter valid URL</string>
 </resources>

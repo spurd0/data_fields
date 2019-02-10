@@ -1,18 +1,38 @@
 package com.babenko.datafields.screen.feature.url
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import android.widget.Toast
+import android.arch.lifecycle.ViewModel
+import com.babenko.datafields.application.DataFieldsApplication
+import com.babenko.datafields.application.arch.lifecycle.SingleLiveEvent
+import com.babenko.datafields.application.util.applyIoMainThreadSchedulersToCompletable
+import com.babenko.datafields.model.datasource.rest.constant.RestUrls.DEBUG_URL_FIELDS
+import com.babenko.datafields.model.interactor.DataFieldsInteractor
+import com.babenko.datafields.model.throwable.IncorrectUrlException
+import com.babenko.datafields.model.throwable.NoConnectionException
+import javax.inject.Inject
 
-class UrlViewModel(application: Application) : AndroidViewModel(application) {
-    private val urlData = MutableLiveData<CharSequence>()
+class UrlViewModel : ViewModel() {
+    @Inject lateinit var dataFieldsInteractor: DataFieldsInteractor
+    val urlData = MutableLiveData<CharSequence>()
+    val liveData = SingleLiveEvent<UrlViewState>()
+
+    init {
+        DataFieldsApplication.appComponent.inject(this)
+
+        urlData.value = DEBUG_URL_FIELDS
+    }
 
     fun urlChanged(newValue: CharSequence) {
         urlData.value = newValue
     }
 
     fun requestFieldsClicked() {
-        Toast.makeText(getApplication(), urlData.value, Toast.LENGTH_SHORT).show()
+        val d = dataFieldsInteractor.requestDataFields(urlData.value.toString())
+            .compose(applyIoMainThreadSchedulersToCompletable())
+            .doOnSubscribe { liveData.value = UrlViewState.LoadingStarted }
+            .subscribe(
+                { liveData.value = UrlViewState.Loaded() },
+                { liveData.value = UrlViewState.Error(it) }
+            )
     }
 }
