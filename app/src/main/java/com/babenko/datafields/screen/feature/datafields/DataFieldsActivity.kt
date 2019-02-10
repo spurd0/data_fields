@@ -9,9 +9,11 @@ import com.babenko.datafields.model.throwable.NoDataFieldsException
 import com.babenko.datafields.model.viewobject.DataFieldVo
 import com.babenko.datafields.screen.base.BaseActivity
 import com.babenko.datafields.screen.feature.datafields.adapter.DataFieldsAdapter
+import com.babenko.datafields.screen.feature.datafields.adapter.DataFieldsListener
 import kotlinx.android.synthetic.main.activity_data_fields.*
+import timber.log.Timber
 
-class DataFieldsActivity : BaseActivity() {
+class DataFieldsActivity : BaseActivity(), DataFieldsListener {
     companion object {
         private const val TAG = "DataFieldsActivity"
     }
@@ -27,8 +29,12 @@ class DataFieldsActivity : BaseActivity() {
         initViews()
     }
 
+    override fun submitButtonClicked() {
+        viewModel.submitButtonPressed()
+    }
+
     private fun initViews() {
-        dataFieldsAdapter = DataFieldsAdapter(this)
+        dataFieldsAdapter = DataFieldsAdapter(this, this)
         dataFieldsRv.adapter = dataFieldsAdapter
         val layoutManager = LinearLayoutManager(this)
         dataFieldsRv.layoutManager = layoutManager

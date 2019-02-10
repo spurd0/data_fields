@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.babenko.datafields.application.DataFieldsApplication
 import com.babenko.datafields.application.arch.lifecycle.SingleLiveEvent
-import com.babenko.datafields.application.util.applyIoMainThreadSchedulersToCompletable
 import com.babenko.datafields.application.util.applyIoMainThreadSchedulersToSingle
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.interactor.DataFieldsInteractor
@@ -43,7 +42,12 @@ class DataFieldsViewModel() : ViewModel() {
 
     fun submitButtonPressed() {
         val d = dataFieldsInteractor.checkFields(dataFieldsData.value!!)
-            .compose(applyIoMainThreadSchedulersToCompletable())
-            .subscribe { Timber.d("Checked") }
+            .compose(applyIoMainThreadSchedulersToSingle())
+            .subscribe(this::onFieldsChecked)
+    }
+
+    private fun onFieldsChecked(correct: Boolean) {
+        Timber.d("Checked: $correct")
+        liveData.value = DataFieldsViewState.Loaded(dataFieldsData.value!!)
     }
 }

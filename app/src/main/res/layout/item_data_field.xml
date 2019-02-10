@@ -15,11 +15,9 @@
                 android:id="@+id/dataFieldValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/defaultMargin"
-                android:layout_marginLeft="@dimen/defaultMargin"
-                android:layout_marginRight="@dimen/defaultMargin"
-                android:layout_marginTop="@dimen/defaultMargin"
+                android:layout_margin="@dimen/defaultMargin"
                 android:inputType="textPersonName"
+                android:imeOptions="normal"
                 android:text="Name"/>
     </android.support.design.widget.TextInputLayout>
 
