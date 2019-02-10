@@ -5,6 +5,7 @@ import com.babenko.datafields.model.datasource.rest.config.ServerEndpoint
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.repository.DataFieldsRepository
 import com.babenko.datafields.model.throwable.IncorrectUrlException
+import com.babenko.datafields.model.viewobject.DataFieldVo
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.internal.operators.completable.CompletableFromAction
@@ -23,7 +24,7 @@ class DataFieldsInteractor @Inject constructor(
     }
 
     private fun saveDataFields(dataFields: List<DataField>): Completable {
-        return CompletableFromAction { dataFieldsRepository.saveDataFeilds(dataFields) }
+        return CompletableFromAction { dataFieldsRepository.saveDataFields(dataFields) }
     }
 
     private fun getEndpoint(url: String): Single<ServerEndpoint> {
@@ -43,7 +44,7 @@ class DataFieldsInteractor @Inject constructor(
         return dataFieldsRepository.getDataFields()
     }
 
-    fun checkFields(valuesList: List<DataField>): Completable {
+    fun checkFields(valuesList: List<DataFieldVo>): Completable {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

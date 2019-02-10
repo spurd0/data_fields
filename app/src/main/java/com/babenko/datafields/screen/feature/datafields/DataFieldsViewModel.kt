@@ -8,13 +8,15 @@ import com.babenko.datafields.application.util.applyIoMainThreadSchedulersToComp
 import com.babenko.datafields.application.util.applyIoMainThreadSchedulersToSingle
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.interactor.DataFieldsInteractor
+import com.babenko.datafields.model.mapper.MapperDataField
+import com.babenko.datafields.model.viewobject.DataFieldVo
 import timber.log.Timber
 import javax.inject.Inject
 
 
 class DataFieldsViewModel() : ViewModel() {
     @Inject lateinit var dataFieldsInteractor: DataFieldsInteractor
-    private val dataFieldsData = MutableLiveData<List<DataField>>()
+    private val dataFieldsData = MutableLiveData<List<DataFieldVo>>()
     val liveData = SingleLiveEvent<DataFieldsViewState>()
 
     init {
@@ -24,10 +26,11 @@ class DataFieldsViewModel() : ViewModel() {
     private fun requestFieldsData() {
         val d = dataFieldsInteractor.getDataFields()
             .compose<List<DataField>>(applyIoMainThreadSchedulersToSingle<List<DataField>>())
+            .map { data -> MapperDataField().mapTo(data) }
             .subscribe(this::onDataFieldsObtained, this::onDataFieldsError)
     }
 
-    private fun onDataFieldsObtained(dataFields: List<DataField>) {
+    private fun onDataFieldsObtained(dataFields: List<DataFieldVo>) {
         liveData.value = DataFieldsViewState.Loaded(dataFields)
         dataFieldsData.value = dataFields
     }

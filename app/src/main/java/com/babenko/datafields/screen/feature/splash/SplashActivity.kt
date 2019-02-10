@@ -48,8 +48,8 @@ class SplashActivity : BaseActivity() {
 
     private fun navigateToNextScreen(screen: SplashViewModel.Screen) {
         when (screen) {
-            SplashViewModel.Screen.Login -> navigator.navigateToUrlScreen(this, true)
-            SplashViewModel.Screen.Images -> navigator.navigateToUrlScreen(this, true)
+            SplashViewModel.Screen.Login -> navigator.navigateToUrlScreen(this, false)
+            SplashViewModel.Screen.Images -> navigator.navigateToUrlScreen(this, false)
         }
     }
 }

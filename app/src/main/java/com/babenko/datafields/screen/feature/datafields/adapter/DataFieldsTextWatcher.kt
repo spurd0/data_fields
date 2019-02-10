@@ -2,10 +2,10 @@ package com.babenko.datafields.screen.feature.datafields.adapter
 
 import android.text.Editable
 import android.text.TextWatcher
-import com.babenko.datafields.model.entity.DataField
+import com.babenko.datafields.model.viewobject.DataFieldVo
 
 
-class DataFieldsTextWatcher(private val dataField: DataField) : TextWatcher {
+class DataFieldsTextWatcher(private val dataField: DataFieldVo) : TextWatcher {
 
     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 

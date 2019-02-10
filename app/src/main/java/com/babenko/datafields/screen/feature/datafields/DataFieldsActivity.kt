@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.babenko.datafields.R
 import com.babenko.datafields.application.util.getViewModel
-import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.throwable.NoDataFieldsException
+import com.babenko.datafields.model.viewobject.DataFieldVo
 import com.babenko.datafields.screen.base.BaseActivity
 import com.babenko.datafields.screen.feature.datafields.adapter.DataFieldsAdapter
 import kotlinx.android.synthetic.main.activity_data_fields.*
@@ -41,7 +41,7 @@ class DataFieldsActivity : BaseActivity() {
         }
     }
 
-    private fun showDataFields(dataFields: List<DataField>) {
+    private fun showDataFields(dataFields: List<DataFieldVo>) {
         dataFieldsAdapter.replaceItems(dataFields)
     }
 

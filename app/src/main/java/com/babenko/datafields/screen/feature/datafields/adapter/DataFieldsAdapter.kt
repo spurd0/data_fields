@@ -12,7 +12,7 @@ import android.widget.EditText
 import com.babenko.datafields.R
 import com.babenko.datafields.application.util.getInputHint
 import com.babenko.datafields.application.util.getInputType
-import com.babenko.datafields.model.entity.DataField
+import com.babenko.datafields.model.viewobject.DataFieldVo
 import com.babenko.datafields.screen.feature.datafields.adapter.holder.DataFieldFooterViewHolder
 import com.babenko.datafields.screen.feature.datafields.adapter.holder.DataFieldHeaderViewHolder
 import com.babenko.datafields.screen.feature.datafields.adapter.holder.DataFieldItemViewHolder
@@ -87,7 +87,7 @@ class DataFieldsAdapter(private val context: Context) :
 
     private fun onBindDataField(
         holder: DataFieldItemViewHolder,
-        dataElement: DataField
+        dataElement: DataFieldVo
     ) {
         val textWatcher = DataFieldsTextWatcher(dataElement)
         holder.mFieldValue.tag = dataElement.id
@@ -103,7 +103,7 @@ class DataFieldsAdapter(private val context: Context) :
         fieldValues.put(holder.mFieldValue.tag as Int, holder.mFieldValue)
     }
 
-    fun replaceItems(dataFields: List<DataField>) {
+    fun replaceItems(dataFields: List<DataFieldVo>) {
         clearDataFields()
         for (dataField in dataFields) {
             items.add(DataFieldAdapterItem(dataField))
@@ -141,7 +141,7 @@ class DataFieldsAdapter(private val context: Context) :
         val itemViewType: Int
     }
 
-    data class DataFieldAdapterItem(val dataField: DataField) :
+    data class DataFieldAdapterItem(val dataField: DataFieldVo) :
         AdapterItem {
         override val itemViewType = TYPE_DATA_FIELD
     }
