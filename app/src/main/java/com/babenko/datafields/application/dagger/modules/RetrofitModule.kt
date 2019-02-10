@@ -1,5 +1,8 @@
 package com.babenko.datafields.application.dagger.modules
 
+import android.content.Context
+import android.net.ConnectivityManager
+import com.babenko.datafields.model.datasource.rest.ConnectivityInterceptor
 import com.babenko.datafields.model.datasource.rest.NetworkApi
 import com.babenko.datafields.model.datasource.rest.config.ServerEndpoint
 import com.babenko.datafields.model.datasource.rest.config.SimpleServerEndpoint
@@ -47,9 +50,13 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        connectivityInterceptor: ConnectivityInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(connectivityInterceptor)
             .retryOnConnectionFailure(true)
             .connectTimeout(RestOptions.TIMEOUT_CONNECTION_SECONDS, TimeUnit.SECONDS)
             .readTimeout(RestOptions.TIMEOUT_READ_SECONDS, TimeUnit.SECONDS)
@@ -63,15 +70,6 @@ class RetrofitModule {
         return HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
-    }
-
-    @Provides
-    @Singleton
-    internal fun provideRetrofitBuilder(factory: Converter.Factory): Retrofit.Builder {
-        return Retrofit.Builder()
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(factory)
-
     }
 
     @Provides
@@ -90,6 +88,14 @@ class RetrofitModule {
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
             .serializeNulls()
             .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideConnectivityInterceptor(context: Context): ConnectivityInterceptor {
+        return ConnectivityInterceptor(
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        )
     }
 
     private class CustomFieldNamingPolicy : FieldNamingStrategy {
