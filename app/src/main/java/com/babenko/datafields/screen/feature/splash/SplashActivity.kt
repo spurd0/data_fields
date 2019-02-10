@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import com.babenko.datafields.R
 import com.babenko.datafields.application.util.getViewModel
 import com.babenko.datafields.screen.base.BaseActivity
@@ -46,6 +45,9 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun navigateToNextScreen(screen: SplashViewModel.Screen) {
-        Toast.makeText(this, "Navigate to next screen: $screen", Toast.LENGTH_SHORT).show()
+        when (screen) {
+            SplashViewModel.Screen.Login -> navigator.navigateToUrlScreen(this)
+            SplashViewModel.Screen.Images -> navigator.navigateToUrlScreen(this)
+        }
     }
 }
