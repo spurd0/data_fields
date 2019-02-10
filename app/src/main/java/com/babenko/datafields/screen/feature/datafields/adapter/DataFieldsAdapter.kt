@@ -13,14 +13,14 @@ import android.widget.EditText
 import com.babenko.datafields.R
 import com.babenko.datafields.application.util.getInputHint
 import com.babenko.datafields.application.util.getInputType
-import com.babenko.datafields.model.viewobject.DataFieldVo
+import com.babenko.datafields.model.viewobject.DataFieldsVo
 import com.babenko.datafields.screen.feature.datafields.adapter.holder.DataFieldFooterViewHolder
 import com.babenko.datafields.screen.feature.datafields.adapter.holder.DataFieldHeaderViewHolder
 
 
 class DataFieldsAdapter(
     private val context: Context,
-    val dataFieldsListener: DataFieldsListener
+    private val dataFieldsListener: DataFieldsListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
@@ -40,11 +40,6 @@ class DataFieldsAdapter(
     }
     private val inflater = LayoutInflater.from(context)
     private val items = ArrayList<AdapterItem>()
-
-    init {
-        items.add(DataFieldHeaderAdapterItem())
-        items.add(DataFieldFoterAdapterItem())
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -87,8 +82,16 @@ class DataFieldsAdapter(
         val dataElement = items[position]
         val viewType = dataElement.itemViewType
         when (viewType) {
+            TYPE_HEADER -> onBindHeader(holder as DataFieldHeaderViewHolder, dataElement as DataFieldHeaderAdapterItem)
             TYPE_DATA_FIELD -> onBindDataField(holder as DataFieldItemViewHolder, position)
         }
+    }
+
+    private fun onBindHeader(
+        holder: DataFieldHeaderViewHolder,
+        item: DataFieldHeaderAdapterItem
+    ) {
+        holder.validationErrorTv.visibility = if (item.fieldsCorrect) View.GONE else View.VISIBLE
     }
 
     private fun onBindDataField(
@@ -102,38 +105,40 @@ class DataFieldsAdapter(
         holder.fieldValue.setText(value)
         holder.fieldValue.hint = getInputHint(dataElement.type, context)
         holder.fieldValue.inputType = getInputType(dataElement.type)
+        if (dataElement.error) {
+            holder.fieldValue.error = context.getString(R.string.data_field_incorrect)
+        } else {
+            holder.fieldValue.error = null
+        }
     }
 
-    fun replaceItems(dataFields: List<DataFieldVo>) {
-        clearDataFields()
+    fun replaceItems(
+        dataFields: List<DataFieldsVo.DataFieldVo>,
+        fieldsCorrect: Boolean
+    ) {
+        items.clear()
+        items.add(DataFieldHeaderAdapterItem(fieldsCorrect))
         for (dataField in dataFields) {
             items.add(POSITION_DATA_FIELDS, DataFieldAdapterItem(dataField))
         }
+        items.add(DataFieldFooterAdapterItem())
         notifyDataSetChanged()
-    }
-
-    private fun clearDataFields() {
-        val iterator = items.iterator()
-        while (iterator.hasNext()) {
-            val item = iterator.next()
-            if (item.itemViewType == TYPE_DATA_FIELD) iterator.remove()
-        }
     }
 
     interface AdapterItem {
         val itemViewType: Int
     }
 
-    data class DataFieldAdapterItem(val dataField: DataFieldVo) :
+    data class DataFieldAdapterItem(val dataField: DataFieldsVo.DataFieldVo) :
         AdapterItem {
         override val itemViewType = TYPE_DATA_FIELD
     }
 
-    private class DataFieldHeaderAdapterItem() : AdapterItem {
+    private data class DataFieldHeaderAdapterItem(val fieldsCorrect: Boolean) : AdapterItem {
         override val itemViewType = TYPE_HEADER
     }
 
-    private class DataFieldFoterAdapterItem() : AdapterItem {
+    private class DataFieldFooterAdapterItem() : AdapterItem {
         override val itemViewType = TYPE_FOOTER
     }
 

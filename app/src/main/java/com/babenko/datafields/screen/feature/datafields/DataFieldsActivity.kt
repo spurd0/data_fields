@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.babenko.datafields.R
 import com.babenko.datafields.application.util.getViewModel
 import com.babenko.datafields.model.throwable.NoDataFieldsException
-import com.babenko.datafields.model.viewobject.DataFieldVo
+import com.babenko.datafields.model.viewobject.DataFieldsVo
 import com.babenko.datafields.screen.base.BaseActivity
 import com.babenko.datafields.screen.feature.datafields.adapter.DataFieldsAdapter
 import com.babenko.datafields.screen.feature.datafields.adapter.DataFieldsListener
@@ -43,11 +43,12 @@ class DataFieldsActivity : BaseActivity(), DataFieldsListener {
         when (vs) {
             is DataFieldsViewState.Loaded -> showDataFields(vs.dataFields)
             is DataFieldsViewState.Error -> onDataFieldsError(vs.throwable)
+            is DataFieldsViewState.Checked -> fieldsSuccessfullyChecked()
         }
     }
 
-    private fun showDataFields(dataFields: List<DataFieldVo>) {
-        dataFieldsAdapter.replaceItems(dataFields)
+    private fun showDataFields(dataFields: DataFieldsVo) {
+        dataFieldsAdapter.replaceItems(dataFields.fields, dataFields.fieldsCorrect)
     }
 
     private fun onDataFieldsError(throwable: Throwable) {
@@ -58,18 +59,6 @@ class DataFieldsActivity : BaseActivity(), DataFieldsListener {
             }
         }
     }
-
-//    private fun fillDataFields(dataFields: List<DataField>) {// TODO: 15/05/17 how to correctly make a testing or skip it?
-//        for (dataField in dataFields) {
-//            when (dataField.type) {
-//                TEXT -> dataField.value = "Very-very-very long text"
-//                EMAIL -> dataField.value = "foo@java.com"
-//                PHONE -> dataField.value = "+79991234200"
-//                NUMBER -> dataField.value = "12345"
-//                URL -> dataField.value = "ya.ru"
-//            }
-//        }
-//    }
 
     private fun fieldsSuccessfullyChecked() {
         navigator.navigateToImagesActivity(this)

@@ -11,7 +11,7 @@ import com.babenko.datafields.model.datasource.rest.constant.RestConsts.URL
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.repository.DataFieldsRepository
 import com.babenko.datafields.model.throwable.IncorrectUrlException
-import com.babenko.datafields.model.viewobject.DataFieldVo
+import com.babenko.datafields.model.viewobject.DataFieldsVo
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.internal.operators.completable.CompletableFromAction
@@ -59,16 +59,17 @@ class DataFieldsInteractor @Inject constructor(
         return dataFieldsRepository.getDataFields()
     }
 
-    fun checkFields(valuesList: List<DataFieldVo>): Single<Boolean> {
+    fun checkFields(values: DataFieldsVo): Single<Boolean> {
         return SingleFromCallable {
             var allIsCorrect = true
-            for (value in valuesList) {
+            for (value in values.fields) {
                 val correct = isDataFieldCorrect(value.value, value.type)
-                value.error = true
+                value.error = !correct
                 if (!correct) {
                     allIsCorrect = false
                 }
             }
+            values.fieldsCorrect = allIsCorrect
             return@SingleFromCallable allIsCorrect
         }
     }

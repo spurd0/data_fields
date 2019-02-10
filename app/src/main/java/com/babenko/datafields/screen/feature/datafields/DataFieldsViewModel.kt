@@ -5,17 +5,17 @@ import android.arch.lifecycle.ViewModel
 import com.babenko.datafields.application.DataFieldsApplication
 import com.babenko.datafields.application.arch.lifecycle.SingleLiveEvent
 import com.babenko.datafields.application.util.applyIoMainThreadSchedulersToSingle
+import com.babenko.datafields.model.datasource.rest.constant.RestConsts
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.interactor.DataFieldsInteractor
 import com.babenko.datafields.model.mapper.MapperDataField
-import com.babenko.datafields.model.viewobject.DataFieldVo
-import timber.log.Timber
+import com.babenko.datafields.model.viewobject.DataFieldsVo
 import javax.inject.Inject
 
 
 class DataFieldsViewModel() : ViewModel() {
     @Inject lateinit var dataFieldsInteractor: DataFieldsInteractor
-    private val dataFieldsData = MutableLiveData<List<DataFieldVo>>()
+    private val dataFieldsData = MutableLiveData<DataFieldsVo>()
     val liveData = SingleLiveEvent<DataFieldsViewState>()
 
     init {
@@ -28,10 +28,25 @@ class DataFieldsViewModel() : ViewModel() {
         val d = dataFieldsInteractor.getDataFields()
             .compose<List<DataField>>(applyIoMainThreadSchedulersToSingle<List<DataField>>())
             .map { data -> MapperDataField().mapTo(data) }
+            .map { data -> DataFieldsVo(data, true) }
+            .map { data -> fillDataFields(data) }
             .subscribe(this::onDataFieldsObtained, this::onDataFieldsError)
     }
 
-    private fun onDataFieldsObtained(dataFields: List<DataFieldVo>) {
+    private fun fillDataFields(dataFields: DataFieldsVo): DataFieldsVo {
+        for (dataField in dataFields.fields) {
+            when (dataField.type) {
+                RestConsts.TEXT -> dataField.value = "Very-very-very long text"
+                RestConsts.EMAIL -> dataField.value = "foo@java.com"
+                RestConsts.PHONE -> dataField.value = "+79991234200"
+                RestConsts.NUMBER -> dataField.value = "12345"
+                RestConsts.URL -> dataField.value = "ya.ru"
+            }
+        }
+        return dataFields
+    }
+
+    private fun onDataFieldsObtained(dataFields: DataFieldsVo) {
         liveData.value = DataFieldsViewState.Loaded(dataFields)
         dataFieldsData.value = dataFields
     }
@@ -47,7 +62,7 @@ class DataFieldsViewModel() : ViewModel() {
     }
 
     private fun onFieldsChecked(correct: Boolean) {
-        Timber.d("Checked: $correct")
         liveData.value = DataFieldsViewState.Loaded(dataFieldsData.value!!)
+        if (correct) liveData.value = DataFieldsViewState.Checked
     }
 }
