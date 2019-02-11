@@ -2,4 +2,5 @@
 <resources>
     <dimen name="defaultMargin">8dp</dimen>
     <dimen name="imageTitleText">16sp</dimen>
+    <dimen name="textCaption">12sp</dimen>
 </resources>

@@ -2,7 +2,6 @@ package com.babenko.datafields.model.repository
 
 import com.babenko.datafields.model.datasource.db.DataFieldsDatabase
 import com.babenko.datafields.model.datasource.rest.NetworkApi
-import com.babenko.datafields.model.datasource.rest.config.ServerEndpoint
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.throwable.NoDataFieldsException
 import io.reactivex.Single
@@ -12,9 +11,8 @@ class DataFieldsRepository @Inject constructor(
     private val networkApi: NetworkApi,
     private val db: DataFieldsDatabase
 ) {
-    fun requestDataFields(endpoint: ServerEndpoint): Single<List<DataField>> {
-        return networkApi
-            .requestDataFields(endpoint.url())
+    fun requestDataFields(url: String): Single<List<DataField>> {
+        return networkApi.requestDataFields(url)
     }
 
     fun saveDataFields(dataFields: List<DataField>) {

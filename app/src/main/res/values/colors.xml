@@ -6,4 +6,5 @@
 
     <color name="backgroundSplash">@android:color/background_light</color>
     <color name="errorText">#ff3b3b</color>
+    <color name="postBackground">#8AE7DD</color>
 </resources>

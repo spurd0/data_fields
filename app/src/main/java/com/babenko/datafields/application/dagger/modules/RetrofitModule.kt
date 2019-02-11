@@ -4,9 +4,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.babenko.datafields.model.datasource.rest.ConnectivityInterceptor
 import com.babenko.datafields.model.datasource.rest.NetworkApi
-import com.babenko.datafields.model.datasource.rest.config.ServerEndpoint
-import com.babenko.datafields.model.datasource.rest.config.SimpleServerEndpoint
 import com.babenko.datafields.model.datasource.rest.constant.RestOptions
+import com.babenko.datafields.model.datasource.rest.constant.RestUrls.URL_BASE
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.FieldNamingStrategy
 import com.google.gson.Gson
@@ -33,19 +32,13 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(endpoint: ServerEndpoint, gson: Gson, client: OkHttpClient): Retrofit {
+    fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(endpoint.url())
+            .baseUrl(URL_BASE)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideServerEndpoint(): ServerEndpoint {
-        return SimpleServerEndpoint()
     }
 
     @Singleton
@@ -100,7 +93,7 @@ class RetrofitModule {
 
     private class CustomFieldNamingPolicy : FieldNamingStrategy {
         override fun translateName(field: Field): String {
-            var name = FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES.translateName(field)
+            val name = FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES.translateName(field)
             if (name == "value")
                 return "default_value"
             if (name == "album_id")

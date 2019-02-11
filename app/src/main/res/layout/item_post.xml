@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="@color/postBackground"
+        card_view:cardCornerRadius="@dimen/defaultMargin"
+        card_view:cardElevation="4dp"
+        card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/defaultMargin"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/defaultMargin">
+
+
+        <TextView
+                android:id="@+id/titleTv"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="@dimen/defaultMargin"
+                tools:text="Title"/>
+
+        <TextView
+                android:id="@+id/bodyTv"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titleTv"
+                android:layout_marginStart="@dimen/defaultMargin"
+                android:layout_marginLeft="@dimen/defaultMargin"
+                android:textSize="@dimen/textCaption"
+                tools:text="Body"/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+

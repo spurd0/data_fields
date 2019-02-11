@@ -2,7 +2,6 @@ package com.babenko.datafields.model.interactor
 
 import android.text.TextUtils
 import android.util.Patterns
-import com.babenko.datafields.model.datasource.rest.config.ServerEndpoint
 import com.babenko.datafields.model.datasource.rest.constant.RestConsts.EMAIL
 import com.babenko.datafields.model.datasource.rest.constant.RestConsts.NUMBER
 import com.babenko.datafields.model.datasource.rest.constant.RestConsts.PHONE
@@ -42,16 +41,12 @@ class DataFieldsInteractor @Inject constructor(
         return CompletableFromAction { dataFieldsRepository.saveDataFields(dataFields) }
     }
 
-    private fun getEndpoint(url: String): Single<ServerEndpoint> {
+    private fun getEndpoint(url: String): Single<String> {
         return Single.fromCallable {
             if (!Patterns.WEB_URL.matcher(url).matches()) {
                 throw IncorrectUrlException()
             }
-            return@fromCallable object : ServerEndpoint {
-                override fun url(): String {
-                    return url
-                }
-            }
+            return@fromCallable url
         }
     }
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.babenko.datafields.screen.feature.datafields.DataFieldsActivity
 import com.babenko.datafields.screen.feature.images.ImagesActivity
+import com.babenko.datafields.screen.feature.posts.PostsActivity
 import com.babenko.datafields.screen.feature.url.UrlActivity
 
 class Navigator {
@@ -20,6 +21,11 @@ class Navigator {
 
     fun navigateToImagesActivity(context: Context) {
         val intent = Intent(context, ImagesActivity::class.java)
+        context.startActivity(intent)
+    }
+
+    fun navigateToPostsActivity(context: Context) {
+        val intent = Intent(context, PostsActivity::class.java)
         context.startActivity(intent)
     }
 }
