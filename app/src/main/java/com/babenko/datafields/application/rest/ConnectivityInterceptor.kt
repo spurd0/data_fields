@@ -1,4 +1,4 @@
-package com.babenko.datafields.model.datasource.rest
+package com.babenko.datafields.application.rest
 
 import android.net.ConnectivityManager
 import com.babenko.datafields.model.throwable.NoConnectionException

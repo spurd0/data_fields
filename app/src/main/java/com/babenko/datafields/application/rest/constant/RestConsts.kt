@@ -1,4 +1,4 @@
-package com.babenko.datafields.model.datasource.rest.constant
+package com.babenko.datafields.application.rest.constant
 
 
 object RestConsts {
@@ -11,4 +11,6 @@ object RestConsts {
     const val PHONE = "PHONE"
     const val NUMBER = "NUMBER"
     const val URL = "URL"
+
+    const val POSTS_LOAD_SIZE = 10 // by default
 }

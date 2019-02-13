@@ -1,4 +1,4 @@
-package com.babenko.datafields.model.datasource.rest
+package com.babenko.datafields.application.rest
 
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.entity.ImageItem
@@ -16,5 +16,5 @@ interface NetworkApi {
     fun requestImages(@Url url: String): Single<List<ImageItem>>
 
     @GET
-    fun posts(@Url url: String, @Query("_page") page: Int): Single<List<PostItem>>
+    fun requestPosts(@Url url: String, @Query("_page") page: Int): Single<List<PostItem>>
 }

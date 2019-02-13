@@ -1,7 +1,7 @@
 package com.babenko.datafields.model.repository
 
-import com.babenko.datafields.model.datasource.db.DataFieldsDatabase
-import com.babenko.datafields.model.datasource.rest.NetworkApi
+import com.babenko.datafields.application.db.DataFieldsDatabase
+import com.babenko.datafields.application.rest.NetworkApi
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.throwable.NoDataFieldsException
 import io.reactivex.Single

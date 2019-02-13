@@ -4,7 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.babenko.datafields.application.DataFieldsApplication
 import com.babenko.datafields.application.util.applyIoMainThreadSchedulersToCompletable
-import com.babenko.datafields.model.datasource.rest.constant.RestUrls.URL_FIELDS
+import com.babenko.datafields.application.rest.constant.RestUrls.URL_FIELDS
 import com.babenko.datafields.model.interactor.DataFieldsInteractor
 import javax.inject.Inject
 

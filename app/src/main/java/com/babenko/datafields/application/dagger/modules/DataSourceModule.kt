@@ -2,8 +2,8 @@ package com.babenko.datafields.application.dagger.modules
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.babenko.datafields.model.datasource.db.DataFieldsDatabase
-import com.babenko.datafields.model.datasource.storage.Prefs
+import com.babenko.datafields.application.db.DataFieldsDatabase
+import com.babenko.datafields.application.storage.Prefs
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

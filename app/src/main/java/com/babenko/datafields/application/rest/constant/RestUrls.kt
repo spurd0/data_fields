@@ -1,4 +1,4 @@
-package com.babenko.datafields.model.datasource.rest.constant
+package com.babenko.datafields.application.rest.constant
 
 
 object RestUrls {

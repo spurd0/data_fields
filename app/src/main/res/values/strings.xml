@@ -18,4 +18,8 @@
     <string name="data_fields_submit_button">Submit</string>
     <!--Images list screen-->
     <string name="images_list_is_empty">Images list is empty</string>
+    <!--Posts-->
+    <string name="retry">Retry</string>
+    <string name="loading_title">Loading title</string>
+    <string name="loading_body">Loading content</string>
 </resources>

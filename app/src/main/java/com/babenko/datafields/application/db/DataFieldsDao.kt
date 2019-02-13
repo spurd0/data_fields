@@ -1,4 +1,4 @@
-package com.babenko.datafields.model.datasource.db
+package com.babenko.datafields.application.db
 
 import android.arch.persistence.room.*
 import com.babenko.datafields.model.entity.DataField

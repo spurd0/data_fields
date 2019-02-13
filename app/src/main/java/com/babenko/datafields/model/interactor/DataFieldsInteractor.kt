@@ -2,11 +2,11 @@ package com.babenko.datafields.model.interactor
 
 import android.text.TextUtils
 import android.util.Patterns
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts.EMAIL
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts.NUMBER
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts.PHONE
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts.TEXT
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts.URL
+import com.babenko.datafields.application.rest.constant.RestConsts.EMAIL
+import com.babenko.datafields.application.rest.constant.RestConsts.NUMBER
+import com.babenko.datafields.application.rest.constant.RestConsts.PHONE
+import com.babenko.datafields.application.rest.constant.RestConsts.TEXT
+import com.babenko.datafields.application.rest.constant.RestConsts.URL
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.repository.DataFieldsRepository
 import com.babenko.datafields.model.throwable.IncorrectUrlException

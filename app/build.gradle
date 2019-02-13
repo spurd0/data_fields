@@ -80,4 +80,6 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$roomVersion"
     kapt "android.arch.persistence.room:compiler:$roomVersion"
     implementation "android.arch.persistence.room:rxjava2:$roomVersion"
+    //paging
+    implementation "android.arch.paging:runtime:1.0.1"
 }

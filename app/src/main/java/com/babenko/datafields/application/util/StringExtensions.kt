@@ -3,11 +3,11 @@ package com.babenko.datafields.application.util
 import android.content.Context
 import android.text.InputType
 import com.babenko.datafields.R
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts.EMAIL
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts.NUMBER
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts.PHONE
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts.TEXT
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts.URL
+import com.babenko.datafields.application.rest.constant.RestConsts.EMAIL
+import com.babenko.datafields.application.rest.constant.RestConsts.NUMBER
+import com.babenko.datafields.application.rest.constant.RestConsts.PHONE
+import com.babenko.datafields.application.rest.constant.RestConsts.TEXT
+import com.babenko.datafields.application.rest.constant.RestConsts.URL
 
 fun getInputType(type: String): Int {
     return when (type) {

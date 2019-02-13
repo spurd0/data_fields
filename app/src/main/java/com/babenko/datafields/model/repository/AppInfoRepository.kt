@@ -1,6 +1,6 @@
 package com.babenko.datafields.model.repository
 
-import com.babenko.datafields.model.datasource.storage.Prefs
+import com.babenko.datafields.application.storage.Prefs
 import javax.inject.Inject
 
 class AppInfoRepository @Inject constructor(private val prefs: Prefs) {

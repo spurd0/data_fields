@@ -4,7 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.babenko.datafields.application.DataFieldsApplication
 import com.babenko.datafields.application.util.applyIoMainThreadSchedulersToSingle
-import com.babenko.datafields.model.datasource.rest.constant.RestConsts
+import com.babenko.datafields.application.rest.constant.RestConsts
 import com.babenko.datafields.model.entity.DataField
 import com.babenko.datafields.model.interactor.DataFieldsInteractor
 import com.babenko.datafields.model.mapper.MapperDataField

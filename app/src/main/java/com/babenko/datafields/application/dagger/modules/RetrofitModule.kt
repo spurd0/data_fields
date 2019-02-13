@@ -2,10 +2,10 @@ package com.babenko.datafields.application.dagger.modules
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.babenko.datafields.model.datasource.rest.ConnectivityInterceptor
-import com.babenko.datafields.model.datasource.rest.NetworkApi
-import com.babenko.datafields.model.datasource.rest.constant.RestOptions
-import com.babenko.datafields.model.datasource.rest.constant.RestUrls.URL_BASE
+import com.babenko.datafields.application.rest.ConnectivityInterceptor
+import com.babenko.datafields.application.rest.NetworkApi
+import com.babenko.datafields.application.rest.constant.RestOptions
+import com.babenko.datafields.application.rest.constant.RestUrls.URL_BASE
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.FieldNamingStrategy
 import com.google.gson.Gson
