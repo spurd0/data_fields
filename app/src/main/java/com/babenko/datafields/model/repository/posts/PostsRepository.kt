@@ -1,4 +1,4 @@
-package com.babenko.datafields.model.repository
+package com.babenko.datafields.model.repository.posts
 
 import android.arch.paging.PagedList
 import android.os.Handler
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 
 class PostsRepository @Inject constructor(private val networkApi: NetworkApi) {
-    fun getPosts(): PagedList<PostItem> {
+    fun getPosts(): Listing<PostItem> {
         val dataSource = PostsDataSource(networkApi)
 
         val config = PagedList.Config.Builder()
@@ -22,10 +22,16 @@ class PostsRepository @Inject constructor(private val networkApi: NetworkApi) {
             .setPageSize(POSTS_LOAD_SIZE)
             .build()
 
-        return PagedList.Builder<Int, PostItem>(dataSource, config)
+        val postsList = PagedList.Builder<Int, PostItem>(dataSource, config)
             .setNotifyExecutor(MainThreadExecutor())
             .setFetchExecutor(Executors.newSingleThreadExecutor())
             .build()
+
+        return Listing(
+            pagedList = postsList,
+            networkState = dataSource.networkState
+        )
+
     }
 
     private class MainThreadExecutor : Executor {

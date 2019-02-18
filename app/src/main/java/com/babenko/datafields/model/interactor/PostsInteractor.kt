@@ -1,14 +1,14 @@
 package com.babenko.datafields.model.interactor
 
-import android.arch.paging.PagedList
 import com.babenko.datafields.model.entity.PostItem
-import com.babenko.datafields.model.repository.PostsRepository
+import com.babenko.datafields.model.repository.posts.Listing
+import com.babenko.datafields.model.repository.posts.PostsRepository
 import javax.inject.Inject
 
 class PostsInteractor @Inject constructor(
     private val postsRepository: PostsRepository
 ) {
-    fun getPosts(): PagedList<PostItem> {
+    fun getPosts(): Listing<PostItem> {
         return postsRepository.getPosts()
     }
 }

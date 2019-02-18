@@ -1,6 +1,7 @@
 package com.babenko.datafields.screen.feature.posts
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import com.babenko.datafields.R
 import com.babenko.datafields.application.util.getViewModel
@@ -19,6 +20,12 @@ class PostsActivity : BaseActivity() {
         setContentView(R.layout.activity_posts_list)
         model = getViewModel()
         initViews()
+        model.networkState.observe(this, Observer {
+            adapter.setNetworkState(it)
+        })
+        model.posts.observe(this, Observer {
+            adapter.submitList(it)
+        })
     }
 
     private fun initViews() {
@@ -26,8 +33,7 @@ class PostsActivity : BaseActivity() {
     }
 
     private fun initAdapter() {
-        adapter = PostsAdapter()
+        adapter = PostsAdapter { model.retry() }
         recyclerView.adapter = adapter
-        adapter.submitList(model.posts)
     }
 }
