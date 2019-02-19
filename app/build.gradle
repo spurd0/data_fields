@@ -12,13 +12,6 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
         versionName rootProject.versionName
-
-    }
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
     }
     signingConfigs {
         release {
@@ -26,6 +19,12 @@ android {
             storePassword property('prodStorePassword')
             keyAlias property('prodKeyAlias')
             keyPassword property('prodKeyPassword')
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     applicationVariants.all { variant ->
