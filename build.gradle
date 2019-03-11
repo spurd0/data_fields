@@ -43,4 +43,5 @@ ext {
     okhttpVersion = '3.9.1'
     archComponentsVersion = '1.1.1'
     roomVersion = "1.1.1"
+    canaryVersion = "1.6.3"
 }
